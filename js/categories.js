@@ -1,9 +1,7 @@
 const COMPOSITE_CEP = {
   id: 'cep',
-  name: 'CEP (Cidade, Estado, País)',
+  name: 'CEP (Cidade, Estado ou País)',
   icon: 'fa-map-location-dot',
-  composite: true,
-  parts: ['Cidade', 'Estado', 'País'],
 };
 
 const CATEGORIES = [

@@ -62,7 +62,7 @@ function applyConfig(config) {
   _state.config = {
     categories: config.categories || [],
     customCategories: config.customCategories || [],
-    roundCount: config.roundCount || 5,
+    roundCount: config.roundCount != null ? config.roundCount : 5,
   };
   saveState();
 }
@@ -138,7 +138,7 @@ function confirmRound() {
 }
 
 function isGameOver() {
-  return _state.rounds.length >= _state.config.roundCount;
+  return _state.config.roundCount > 0 && _state.rounds.length >= _state.config.roundCount;
 }
 
 function getAllCategoriesForRound() {

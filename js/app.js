@@ -368,7 +368,7 @@ function renderPlayersScreen() {
   document.getElementById('config-cats-count').textContent =
     state.config.categories.length + (state.config.customCategories?.length || 0);
   document.getElementById('config-rounds-count').textContent =
-    state.config.roundCount + ' rodadas';
+    state.config.roundCount === 0 ? 'Livre (sem limite)' : state.config.roundCount + ' rodadas';
 }
 
 function initPlayersScreen() {
@@ -397,7 +397,9 @@ function renderLetterScreen() {
   const round = state.currentRound;
 
   document.getElementById('letter-round-label').textContent =
-    `Rodada ${round.number} de ${state.config.roundCount}`;
+    state.config.roundCount === 0
+      ? `Rodada ${round.number}`
+      : `Rodada ${round.number} de ${state.config.roundCount}`;
 
   document.getElementById('letter-display').textContent = round.letter || '?';
   document.getElementById('letter-number-input').value = '';
@@ -413,6 +415,19 @@ function renderLetterScreen() {
 function renderRoundDots(containerId, current, total, done) {
   const container = document.getElementById(containerId);
   container.innerHTML = '';
+
+  if (total === 0) {
+    for (let i = 1; i <= done; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'round-dot done';
+      container.appendChild(dot);
+    }
+    const cur = document.createElement('div');
+    cur.className = 'round-dot current';
+    container.appendChild(cur);
+    return;
+  }
+
   for (let i = 1; i <= total; i++) {
     const dot = document.createElement('div');
     dot.className = 'round-dot';
@@ -484,7 +499,9 @@ function renderGameScreen() {
 
   document.getElementById('game-letter-badge').textContent = state.currentRound.letter;
   document.getElementById('game-round-num').textContent =
-    `${state.currentRound.number}/${state.config.roundCount}`;
+    state.config.roundCount === 0
+      ? `${state.currentRound.number}`
+      : `${state.currentRound.number}/${state.config.roundCount}`;
 
   const rows = document.getElementById('category-rows');
   rows.innerHTML = '';
@@ -588,7 +605,9 @@ function renderRoundResultScreen() {
   const lastRound = state.rounds[state.rounds.length - 1];
 
   document.getElementById('rr-round-label').textContent =
-    `Rodada ${lastRound.number} de ${state.config.roundCount}`;
+    state.config.roundCount === 0
+      ? `Rodada ${lastRound.number}`
+      : `Rodada ${lastRound.number} de ${state.config.roundCount}`;
   document.getElementById('rr-score').textContent = lastRound.roundTotal;
   document.getElementById('rr-total').textContent = `${state.player.totalScore} pts`;
 
@@ -634,6 +653,14 @@ function renderRoundResultScreen() {
     btn.innerHTML = '<i class="fa-solid fa-arrow-right"></i> Próxima Rodada';
     btn.addEventListener('click', () => { renderLetterScreen(); showScreen('screen-letter'); });
     actions.appendChild(btn);
+
+    if (state.config.roundCount === 0) {
+      const btnEnd = document.createElement('button');
+      btnEnd.className = 'btn btn-ghost btn-full';
+      btnEnd.innerHTML = '<i class="fa-solid fa-flag-checkered"></i> Encerrar Jogo';
+      btnEnd.addEventListener('click', () => { renderFinalScreen(); showScreen('screen-final'); });
+      actions.appendChild(btnEnd);
+    }
   }
 }
 

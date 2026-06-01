@@ -19,7 +19,7 @@ function decodeConfig(code) {
     return {
       categories: payload.c || [],
       customCategories: (payload.x || []).map((name, i) => ({ id: `custom_${i}`, name })),
-      roundCount: payload.r || 5,
+      roundCount: payload.r != null ? payload.r : 5,
     };
   } catch {
     return null;
