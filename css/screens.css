@@ -103,6 +103,10 @@
 /* ════════════════════════════════════════════════════════
    SCREEN: SETUP
    ════════════════════════════════════════════════════════ */
+#screen-setup {
+  padding-bottom: 2.25rem;
+}
+
 .selected-summary {
   display: flex;
   align-items: center;
