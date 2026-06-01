@@ -7,6 +7,7 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="theme-color" content="#0F0F1A" />
   <title>Stop! — Adedanha</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%236C63FF'/><text x='50' y='73' font-family='Arial Black,sans-serif' font-weight='900' font-size='68' fill='white' text-anchor='middle'>S!</text></svg>" />
 
   <link rel="stylesheet" href="css/themes.css" />
   <link rel="stylesheet" href="css/main.css" />
@@ -213,15 +214,25 @@
       <div class="used-letters" id="used-letters-display"></div>
     </div>
 
-    <div class="letter-divider">ou insira um número</div>
-
-    <div class="letter-number-row">
-      <div class="input-group" style="flex:1">
-        <label class="input-label">Número do grupo</label>
-        <input type="number" class="input" id="letter-number-input"
-               placeholder="Ex: 7" min="1" max="999" />
+    <div class="letter-options-col">
+      <div class="letter-divider">ou escolha manualmente</div>
+      <div class="letter-number-row">
+        <div class="input-group" style="flex:1">
+          <label class="input-label">Letra da rodada</label>
+          <input type="text" class="input letter-manual-input" id="letter-manual-input"
+                 placeholder="A – Z" maxlength="1" autocomplete="off" autocapitalize="characters" />
+        </div>
       </div>
-      <div class="letter-number-result" id="letter-number-result">—</div>
+
+      <div class="letter-divider">ou insira um número</div>
+      <div class="letter-number-row">
+        <div class="input-group" style="flex:1">
+          <label class="input-label">Número do grupo</label>
+          <input type="number" class="input" id="letter-number-input"
+                 placeholder="Ex: 7" min="1" max="999" />
+        </div>
+        <div class="letter-number-result" id="letter-number-result">—</div>
+      </div>
     </div>
 
     <div class="bottom-bar">
@@ -242,7 +253,10 @@
         <div class="game-round-label">RODADA</div>
         <div class="game-round-num" id="game-round-num">1</div>
       </div>
-      <div style="width:48px"></div>
+      <div class="game-timer">
+        <div class="game-timer-label">TEMPO</div>
+        <div class="game-timer-value" id="game-timer-value">0:00</div>
+      </div>
     </div>
 
     <div class="category-rows" id="category-rows"></div>

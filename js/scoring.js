@@ -38,28 +38,36 @@ function buildScoreRows(categories, answers, scores, onCycle) {
 
 function createScoreRow(id, name, icon, answer, pts, onCycle) {
   const row = document.createElement('div');
-  row.className = `score-row${pts === 10 ? ' scored-10' : pts === 5 ? ' scored-5' : ''}`;
+  const hasAnswer = answer !== '';
+  const effectivePts = hasAnswer ? pts : 0;
+
+  row.className = `score-row${effectivePts === 10 ? ' scored-10' : effectivePts === 5 ? ' scored-5' : ''}`;
   row.dataset.id = id;
 
-  const { label } = getScoreLabel(pts);
+  const { label } = getScoreLabel(effectivePts);
 
   row.innerHTML = `
     <div class="score-cat-icon"><i class="fa-solid ${icon}"></i></div>
     <div style="flex:1; min-width:0;">
       <div class="score-cat-name">${escapeHtml(name)}</div>
-      <div class="score-answer${answer ? '' : ' empty'}">${answer ? escapeHtml(answer) : 'sem resposta'}</div>
+      <div class="score-answer${hasAnswer ? '' : ' empty'}">${hasAnswer ? escapeHtml(answer) : 'sem resposta'}</div>
     </div>
-    <button class="score-btn ${getScoreState(pts)}" data-id="${id}" aria-label="Alterar pontuação: ${pts} pts">
-      <span class="pts">${pts}</span>
+    <button class="score-btn ${getScoreState(effectivePts)}"
+            data-id="${id}"
+            aria-label="${hasAnswer ? 'Alterar pontuação: ' + effectivePts + ' pts' : 'Sem resposta — zero automático'}"
+            ${hasAnswer ? '' : 'disabled'}>
+      <span class="pts">${effectivePts}</span>
       <span class="pts-label">${label}</span>
     </button>
   `;
 
-  const btn = row.querySelector('.score-btn');
-  btn.addEventListener('click', () => {
-    const newPts = onCycle(id);
-    updateScoreRowUI(row, btn, newPts);
-  });
+  if (hasAnswer) {
+    const btn = row.querySelector('.score-btn');
+    btn.addEventListener('click', () => {
+      const newPts = onCycle(id);
+      updateScoreRowUI(row, btn, newPts);
+    });
+  }
 
   return row;
 }

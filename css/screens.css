@@ -267,6 +267,19 @@
   text-decoration: line-through;
 }
 
+.letter-manual-input {
+  text-transform: uppercase;
+  font-family: 'Fredoka One', cursive;
+  font-size: 2rem;
+  text-align: center;
+  letter-spacing: 4px;
+}
+
+.letter-options-col {
+  display: flex;
+  flex-direction: column;
+}
+
 .letter-divider {
   display: flex;
   align-items: center;
@@ -326,15 +339,35 @@
 
 .game-letter-badge {
   font-family: 'Fredoka One', cursive;
-  font-size: 2rem;
-  color: var(--color-primary);
-  width: 48px;
-  height: 48px;
-  background: rgba(108, 99, 255, 0.1);
+  font-size: 2.5rem;
+  color: #fff;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 4px 16px rgba(108, 99, 255, 0.45);
+  flex-shrink: 0;
+}
+
+.game-timer {
+  text-align: right;
+}
+
+.game-timer-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.game-timer-value {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.3rem;
+  color: var(--text-main);
+  line-height: 1.1;
 }
 
 .game-round-info {
@@ -675,24 +708,33 @@
     padding-block: 2rem;
   }
 
-  /* ── Letter: 2 colunas — display (esq.) + número/start (dir.) ── */
+  /* ── Letter: 2 colunas — display (esq.) + opções (dir.) ── */
   #screen-letter.active {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto 1fr auto auto;
+    grid-template-rows: auto 1fr auto;
     min-height: 100dvh;
   }
 
-  #screen-letter .screen-header   { grid-column: 1 / -1; grid-row: 1; }
+  #screen-letter .screen-header { grid-column: 1 / -1; grid-row: 1; }
   #screen-letter .letter-display-wrap {
-    grid-column: 1; grid-row: 2 / 5;
+    grid-column: 1; grid-row: 2 / 4;
     padding: 2rem 3rem;
     justify-content: center;
   }
-  #screen-letter .letter-big      { font-size: 14rem; min-height: 200px; }
-  #screen-letter .letter-divider  { grid-column: 2; grid-row: 2; align-self: end; padding: 0 3rem 1rem; margin: 0; }
-  #screen-letter .letter-number-row { grid-column: 2; grid-row: 3; padding: 1.5rem 3rem; width: auto; }
-  #screen-letter .bottom-bar      { grid-column: 2; grid-row: 4; position: static; padding: 1rem 3rem; border-top: none; background: transparent; }
+  #screen-letter .letter-big { font-size: 14rem; min-height: 200px; }
+  #screen-letter .letter-options-col {
+    grid-column: 2; grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 2rem 3rem;
+    overflow-y: auto;
+  }
+  #screen-letter .letter-options-col .letter-divider { padding: 0.75rem 0; margin: 0; }
+  #screen-letter .letter-options-col .letter-number-row { padding: 0; width: auto; }
+  #screen-letter .bottom-bar { grid-column: 2; grid-row: 3; position: static; padding: 1rem 3rem; border-top: none; background: transparent; }
 
   /* ── Game: inputs em 2 colunas ── */
   .category-rows {

@@ -391,8 +391,29 @@ function initPlayersScreen() {
    ════════════════════════════════════════════ */
 let _spinning = false;
 let _spinInterval = null;
+let _gameTimerInterval = null;
+let _gameTimerSeconds = 0;
+
+function startGameTimer() {
+  _gameTimerSeconds = 0;
+  document.getElementById('game-timer-value').textContent = '0:00';
+  clearInterval(_gameTimerInterval);
+  _gameTimerInterval = setInterval(() => {
+    _gameTimerSeconds++;
+    const mins = Math.floor(_gameTimerSeconds / 60);
+    const secs = _gameTimerSeconds % 60;
+    document.getElementById('game-timer-value').textContent =
+      `${mins}:${String(secs).padStart(2, '0')}`;
+  }, 1000);
+}
+
+function stopGameTimer() {
+  clearInterval(_gameTimerInterval);
+  _gameTimerInterval = null;
+}
 
 function renderLetterScreen() {
+  stopGameTimer();
   const state = getState();
   const round = state.currentRound;
 
@@ -402,6 +423,7 @@ function renderLetterScreen() {
       : `Rodada ${round.number} de ${state.config.roundCount}`;
 
   document.getElementById('letter-display').textContent = round.letter || '?';
+  document.getElementById('letter-manual-input').value = '';
   document.getElementById('letter-number-input').value = '';
   document.getElementById('letter-number-result').textContent = '—';
 
@@ -467,8 +489,23 @@ function initLetterScreen() {
         setLetter(letter);
         display.textContent = letter;
         document.getElementById('btn-start-round').disabled = false;
+        document.getElementById('letter-manual-input').value = '';
+        document.getElementById('letter-number-input').value = '';
+        document.getElementById('letter-number-result').textContent = '—';
       }
     }, 80);
+  });
+
+  document.getElementById('letter-manual-input').addEventListener('input', e => {
+    const raw = e.target.value.toUpperCase().replace(/[^A-Z]/g, '');
+    e.target.value = raw;
+    if (raw.length === 1) {
+      setLetter(raw);
+      document.getElementById('letter-display').textContent = raw;
+      document.getElementById('btn-start-round').disabled = false;
+      document.getElementById('letter-number-input').value = '';
+      document.getElementById('letter-number-result').textContent = '—';
+    }
   });
 
   document.getElementById('letter-number-input').addEventListener('input', e => {
@@ -479,6 +516,7 @@ function initLetterScreen() {
       setLetter(letter);
       document.getElementById('letter-display').textContent = letter;
       document.getElementById('btn-start-round').disabled = false;
+      document.getElementById('letter-manual-input').value = '';
     } else {
       document.getElementById('letter-number-result').textContent = '—';
     }
@@ -494,6 +532,7 @@ function initLetterScreen() {
    SCREEN: GAME
    ════════════════════════════════════════════ */
 function renderGameScreen() {
+  startGameTimer();
   const state = getState();
   const cats = getAllCategoriesForRound();
 
@@ -558,8 +597,8 @@ function initGameScreen() {
   document.getElementById('btn-cancel-stop').addEventListener('click', () => hideModal('modal-stop-confirm'));
   document.getElementById('btn-confirm-stop').addEventListener('click', () => {
     hideModal('modal-stop-confirm');
+    stopGameTimer();
     lockRound();
-    // Disable all inputs
     document.querySelectorAll('.game-input').forEach(i => i.disabled = true);
     renderScoringScreen();
     showScreen('screen-scoring');
