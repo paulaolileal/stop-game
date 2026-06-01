@@ -2,6 +2,7 @@
 
 > Jogo de Stop/Adedanha offline para grupos de amigos — 100% no navegador, sem login, sem servidor.
 
+[![Jogue Agora](https://img.shields.io/badge/Jogue%20Agora-▶%20Play-FF6B6B?style=for-the-badge&logo=googlechrome&logoColor=white)](https://paulaolileal.github.io/stop-game/)
 [![PWA](https://img.shields.io/badge/PWA-instalável-6C63FF?logo=googlechrome&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
 [![Offline](https://img.shields.io/badge/offline-100%25-43D9AD)](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
 [![Licença](https://img.shields.io/badge/licença-MIT-blue)](LICENSE)
