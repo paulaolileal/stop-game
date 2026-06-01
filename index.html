@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="theme-color" content="#0F0F1A" />
+  <title>Stop! — Adedanha</title>
+
+  <link rel="stylesheet" href="css/themes.css" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/screens.css" />
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" />
+</head>
+<body>
+<canvas id="confetti-canvas"></canvas>
+<div id="app">
+
+  <!-- ════════════════════════════════════
+       SCREEN: HOME
+       ════════════════════════════════════ -->
+  <section id="screen-home" class="screen active">
+    <div class="home-bg-circles" aria-hidden="true">
+      <span class="c1"></span>
+      <span class="c2"></span>
+      <span class="c3"></span>
+    </div>
+
+    <div class="home-header-top">
+      <button class="theme-toggle" id="btn-theme" aria-label="Alternar tema">
+        <i class="fa-solid fa-moon"></i>
+        <span id="theme-label">Escuro</span>
+      </button>
+    </div>
+
+    <div class="home-content">
+      <div class="home-logo">
+        <div class="home-logo-title" aria-label="STOP!">
+          <span class="s">S</span><span class="t">T</span><span class="o">O</span><span class="p">P</span><span class="ex">!</span>
+        </div>
+        <p class="home-logo-sub">Adedanha &bull; O jogo de letras</p>
+      </div>
+
+      <div class="home-actions">
+        <button class="btn btn-primary btn-full" id="btn-new-game">
+          <i class="fa-solid fa-plus"></i>
+          Novo Jogo
+        </button>
+        <button class="btn btn-outline btn-full" id="btn-enter-code">
+          <i class="fa-solid fa-qrcode"></i>
+          Entrar com Código
+        </button>
+      </div>
+
+      <p class="text-muted text-sm text-center">
+        <i class="fa-solid fa-wifi-slash"></i>
+        100% offline &bull; sem login &bull; sem servidor
+      </p>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       SCREEN: SETUP
+       ════════════════════════════════════ -->
+  <section id="screen-setup" class="screen">
+    <div class="screen-header">
+      <button class="btn btn-icon" id="btn-setup-back"><i class="fa-solid fa-arrow-left"></i></button>
+      <h2>Categorias</h2>
+      <button class="btn btn-icon" id="btn-share-setup" title="Compartilhar configuração">
+        <i class="fa-solid fa-share-nodes"></i>
+      </button>
+    </div>
+
+    <!-- Selected chips -->
+    <div class="selected-summary" id="selected-summary">
+      <span class="summary-label"><i class="fa-solid fa-list-check"></i> Selecionadas:</span>
+      <div class="chips-wrap" id="selected-chips"></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="setup-section">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="tab-presets"><i class="fa-solid fa-layer-group"></i> Packs</button>
+        <button class="tab-btn" data-tab="tab-all"><i class="fa-solid fa-th"></i> Todas</button>
+        <button class="tab-btn" data-tab="tab-custom"><i class="fa-solid fa-plus-circle"></i> Personalizadas</button>
+      </div>
+    </div>
+
+    <!-- Tab: Presets -->
+    <div class="tab-panel active" id="tab-presets">
+      <div class="setup-section">
+        <div class="preset-grid" id="preset-grid"></div>
+      </div>
+    </div>
+
+    <!-- Tab: All categories -->
+    <div class="tab-panel" id="tab-all">
+      <div class="cat-search mt-2">
+        <div class="input-group">
+          <input type="search" class="input" id="cat-search-input" placeholder="🔍 Buscar categoria..." />
+        </div>
+      </div>
+      <div class="cat-scroll mt-2">
+        <div class="cat-list" id="all-cat-list"></div>
+      </div>
+    </div>
+
+    <!-- Tab: Custom categories -->
+    <div class="tab-panel" id="tab-custom">
+      <div class="setup-section">
+        <div class="input-group">
+          <label class="input-label">Nova categoria personalizada</label>
+          <div class="flex gap-2">
+            <input type="text" class="input" id="custom-cat-input" placeholder="Ex: Apelido engraçado" maxlength="40" />
+            <button class="btn btn-primary" id="btn-add-custom" style="padding: 0 1.2rem; min-height: 52px;">
+              <i class="fa-solid fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        <div class="cat-list" id="custom-cat-list"></div>
+      </div>
+    </div>
+
+    <!-- Rounds selector -->
+    <div class="setup-section" style="border-top: 1px solid var(--border);">
+      <span class="setup-section-title"><i class="fa-solid fa-rotate"></i> Número de Rodadas</span>
+      <div class="rounds-selector" id="rounds-selector">
+        <button class="rounds-btn" data-rounds="3">3</button>
+        <button class="rounds-btn selected" data-rounds="5">5</button>
+        <button class="rounds-btn" data-rounds="7">7</button>
+        <button class="rounds-btn" data-rounds="10">10</button>
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <button class="btn btn-primary btn-full" id="btn-setup-next">
+        Próximo <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       SCREEN: PLAYERS
+       ════════════════════════════════════ -->
+  <section id="screen-players" class="screen">
+    <div class="screen-header">
+      <button class="btn btn-icon" id="btn-players-back"><i class="fa-solid fa-arrow-left"></i></button>
+      <h2>Jogador</h2>
+      <div style="width:44px"></div>
+    </div>
+
+    <div class="screen-body">
+      <div class="player-hero">
+        <div class="player-hero-icon">
+          <i class="fa-solid fa-user"></i>
+        </div>
+        <h2>Quem é você?</h2>
+        <p class="text-muted mt-2">Cada jogador preenche o seu nome no próprio celular.</p>
+      </div>
+
+      <div class="input-group">
+        <label class="input-label" for="player-name-input">Seu nome</label>
+        <input type="text" class="input" id="player-name-input"
+               placeholder="Ex: Maria Silva" maxlength="20" autocomplete="off" />
+      </div>
+
+      <div class="game-config-preview" id="config-preview">
+        <div class="config-line">
+          <i class="fa-solid fa-list-check"></i>
+          <span>Categorias:</span>
+          <strong id="config-cats-count">—</strong>
+        </div>
+        <div class="config-line">
+          <i class="fa-solid fa-rotate"></i>
+          <span>Rodadas:</span>
+          <strong id="config-rounds-count">—</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <button class="btn btn-primary btn-full" id="btn-start-game">
+        <i class="fa-solid fa-play"></i>
+        Começar Jogo!
+      </button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       SCREEN: LETTER
+       ════════════════════════════════════ -->
+  <section id="screen-letter" class="screen">
+    <div class="screen-header">
+      <div style="display:flex; align-items:center; gap:0.5rem;">
+        <div class="round-dots" id="letter-round-dots"></div>
+      </div>
+      <span id="letter-round-label" style="font-family:'Fredoka One',cursive; font-size:1.1rem; color:var(--text-muted)">Rodada 1</span>
+      <div style="width:80px"></div>
+    </div>
+
+    <div class="letter-display-wrap">
+      <div class="letter-big" id="letter-display">?</div>
+
+      <button class="btn btn-primary" id="btn-draw-letter" style="padding: 0.85rem 2rem;">
+        <i class="fa-solid fa-dice"></i>
+        Sortear Letra
+      </button>
+
+      <div class="used-letters" id="used-letters-display"></div>
+    </div>
+
+    <div class="letter-divider">ou insira um número</div>
+
+    <div class="letter-number-row">
+      <div class="input-group" style="flex:1">
+        <label class="input-label">Número do grupo</label>
+        <input type="number" class="input" id="letter-number-input"
+               placeholder="Ex: 7" min="1" max="999" />
+      </div>
+      <div class="letter-number-result" id="letter-number-result">—</div>
+    </div>
+
+    <div class="bottom-bar">
+      <button class="btn btn-primary btn-full" id="btn-start-round" disabled>
+        <i class="fa-solid fa-flag"></i>
+        Iniciar Rodada!
+      </button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       SCREEN: GAME
+       ════════════════════════════════════ -->
+  <section id="screen-game" class="screen">
+    <div class="game-header">
+      <div class="game-letter-badge" id="game-letter-badge">A</div>
+      <div class="game-round-info">
+        <div class="game-round-label">RODADA</div>
+        <div class="game-round-num" id="game-round-num">1</div>
+      </div>
+      <div style="width:48px"></div>
+    </div>
+
+    <div class="category-rows" id="category-rows"></div>
+
+    <div class="game-bottom">
+      <button class="btn btn-stop btn-full" id="btn-stop">
+        <i class="fa-solid fa-hand"></i> STOP!
+      </button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       SCREEN: SCORING
+       ════════════════════════════════════ -->
+  <section id="screen-scoring" class="screen">
+    <div class="screen-header">
+      <div style="width:44px"></div>
+      <h2>Verificar Respostas</h2>
+      <div style="width:44px"></div>
+    </div>
+
+    <div class="scoring-total-bar">
+      <div>
+        <div class="total-pts-label">TOTAL DA RODADA</div>
+        <div class="total-pts-value" id="scoring-total">0 pts</div>
+      </div>
+      <div class="scoring-hint">
+        <span class="hint-item hint-10"><span class="dot"></span>10 pts único</span>
+        <span class="hint-item hint-5"><span class="dot"></span>5 pts igual</span>
+        <span class="hint-item hint-0"><span class="dot"></span>0 pts inválido</span>
+      </div>
+    </div>
+
+    <div class="score-rows" id="score-rows"></div>
+
+    <div class="bottom-bar">
+      <button class="btn btn-primary btn-full" id="btn-confirm-scoring">
+        <i class="fa-solid fa-check"></i>
+        Confirmar Pontuação
+      </button>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       SCREEN: ROUND RESULT
+       ════════════════════════════════════ -->
+  <section id="screen-round-result" class="screen">
+    <div class="round-result-hero">
+      <div class="round-result-round" id="rr-round-label">Rodada 1 de 5</div>
+      <div class="round-result-score" id="rr-score">0</div>
+      <div class="round-result-pts">pontos nesta rodada</div>
+      <div class="round-result-total">
+        Total acumulado: <strong id="rr-total">0 pts</strong>
+      </div>
+    </div>
+
+    <div class="round-result-body">
+      <h3><i class="fa-solid fa-list-check"></i> Resumo da rodada</h3>
+      <div class="round-breakdown" id="rr-breakdown"></div>
+
+      <div id="rr-actions" style="display:flex; flex-direction:column; gap:0.75rem; margin-top:0.5rem;"></div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════
+       SCREEN: FINAL
+       ════════════════════════════════════ -->
+  <section id="screen-final" class="screen">
+    <div class="final-hero">
+      <div class="final-trophy">🏆</div>
+      <p style="color:var(--text-muted); font-size:0.85rem; font-weight:700; margin-bottom:0.25rem;">VENCEDOR</p>
+      <div class="final-winner-name" id="final-winner-name">—</div>
+      <div class="final-winner-score" id="final-winner-score">0 pts</div>
+    </div>
+
+    <div class="final-body" id="final-ranking"></div>
+
+    <div class="bottom-bar" style="display:flex; gap:0.5rem;">
+      <button class="btn btn-ghost" style="flex:1" id="btn-play-again">
+        <i class="fa-solid fa-rotate-right"></i>
+        Jogar Novamente
+      </button>
+      <button class="btn btn-primary" style="flex:1" id="btn-new-game-final">
+        <i class="fa-solid fa-house"></i>
+        Novo Jogo
+      </button>
+    </div>
+  </section>
+
+</div><!-- /#app -->
+
+<!-- ════════════════════════════════════
+     MODAL: Enter code
+     ════════════════════════════════════ -->
+<div class="modal-overlay hidden" id="modal-enter-code">
+  <div class="modal">
+    <div class="modal-title"><i class="fa-solid fa-qrcode"></i> Entrar com Código</div>
+    <p class="text-muted text-sm mb-4">Cole o código compartilhado pelo organizador do jogo.</p>
+    <div class="input-group">
+      <label class="input-label">Código</label>
+      <input type="text" class="input" id="code-input"
+             placeholder="Cole o código aqui..." autocomplete="off" />
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" style="flex:1" id="btn-cancel-code">Cancelar</button>
+      <button class="btn btn-primary" style="flex:1" id="btn-confirm-code">
+        <i class="fa-solid fa-arrow-right"></i> Entrar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     MODAL: Share config
+     ════════════════════════════════════ -->
+<div class="modal-overlay hidden" id="modal-share">
+  <div class="modal">
+    <div class="modal-title"><i class="fa-solid fa-share-nodes"></i> Compartilhar Jogo</div>
+    <p class="text-muted text-sm mb-4">Envie esse código (ou link) para os outros jogadores.</p>
+    <div class="share-code-box" id="share-code-display">—</div>
+    <div class="share-actions">
+      <button class="btn btn-primary btn-full" id="btn-share-whatsapp">
+        <i class="fa-brands fa-whatsapp"></i> Compartilhar via WhatsApp / App
+      </button>
+      <button class="btn btn-ghost btn-full" id="btn-copy-link">
+        <i class="fa-solid fa-copy"></i> Copiar Link
+      </button>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost btn-full" id="btn-close-share">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     MODAL: Stop confirm
+     ════════════════════════════════════ -->
+<div class="modal-overlay hidden" id="modal-stop-confirm">
+  <div class="modal">
+    <div class="modal-title" style="color:var(--color-danger);">
+      <i class="fa-solid fa-hand"></i> Confirmar STOP?
+    </div>
+    <p class="text-muted">Isso vai encerrar a rodada e bloquear todas as respostas.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" style="flex:1" id="btn-cancel-stop">Voltar</button>
+      <button class="btn btn-danger" style="flex:1" id="btn-confirm-stop">
+        <i class="fa-solid fa-hand"></i> STOP!
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     Toast container
+     ════════════════════════════════════ -->
+<div id="toast-container"></div>
+
+<script src="js/categories.js"></script>
+<script src="js/share.js"></script>
+<script src="js/router.js"></script>
+<script src="js/game.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
