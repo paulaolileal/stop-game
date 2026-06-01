@@ -390,6 +390,7 @@ input[type="number"] { -moz-appearance: textfield; }
 
 .score-row.scored-10 { border-color: var(--color-score-10); }
 .score-row.scored-5  { border-color: var(--color-score-5); }
+.score-row.scored-0  { border-color: rgba(239, 71, 111, 0.35); }
 
 .score-cat-icon {
   width: 32px;
@@ -470,7 +471,7 @@ input[type="number"] { -moz-appearance: textfield; }
 }
 
 .score-btn.state-0 {
-  color: var(--text-muted);
+  color: var(--color-score-0);
 }
 
 /* ─── Round counter dots ─────────────────────────────────── */

@@ -531,6 +531,25 @@ function initLetterScreen() {
 /* ════════════════════════════════════════════
    SCREEN: GAME
    ════════════════════════════════════════════ */
+function validateGameInputs() {
+  const letter = getState().currentRound.letter;
+  let hasInvalid = false;
+
+  document.querySelectorAll('.game-input').forEach(input => {
+    if (input.disabled) {
+      input.classList.remove('input-invalid');
+      return;
+    }
+    const value = input.value.trim();
+    const isValid = value === '' || value[0].toUpperCase() === letter.toUpperCase();
+    input.classList.toggle('input-invalid', !isValid);
+    if (!isValid) hasInvalid = true;
+  });
+
+  const stopBtn = document.getElementById('btn-stop');
+  if (stopBtn) stopBtn.disabled = hasInvalid;
+}
+
 function renderGameScreen() {
   startGameTimer();
   const state = getState();
@@ -541,6 +560,9 @@ function renderGameScreen() {
     state.config.roundCount === 0
       ? `${state.currentRound.number}`
       : `${state.currentRound.number}/${state.config.roundCount}`;
+
+  const stopBtn = document.getElementById('btn-stop');
+  stopBtn.disabled = false;
 
   const rows = document.getElementById('category-rows');
   rows.innerHTML = '';
@@ -584,8 +606,13 @@ function renderGameScreen() {
   });
 
   rows.querySelectorAll('.game-input').forEach(input => {
-    input.addEventListener('input', () => saveAnswer(input.dataset.cat, input.value));
+    input.addEventListener('input', () => {
+      saveAnswer(input.dataset.cat, input.value);
+      validateGameInputs();
+    });
   });
+
+  validateGameInputs();
 }
 
 function escapeAttr(str) {
@@ -808,3 +835,12 @@ function launchConfetti() {
     if (e.target === e.currentTarget) hideModal(id);
   });
 });
+
+/* ════════════════════════════════════════════
+   PWA Service Worker
+   ════════════════════════════════════════════ */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  });
+}

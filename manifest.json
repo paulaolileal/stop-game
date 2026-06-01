@@ -1,0 +1,21 @@
+{
+  "name": "Stop! Adedanha",
+  "short_name": "Stop!",
+  "description": "Jogo de Stop/Adedanha offline para grupos de amigos",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#6C63FF",
+  "background_color": "#0F0F1A",
+  "categories": ["games"],
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

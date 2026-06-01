@@ -41,7 +41,7 @@ function createScoreRow(id, name, icon, answer, pts, onCycle) {
   const hasAnswer = answer !== '';
   const effectivePts = hasAnswer ? pts : 0;
 
-  row.className = `score-row${effectivePts === 10 ? ' scored-10' : effectivePts === 5 ? ' scored-5' : ''}`;
+  row.className = `score-row${effectivePts === 10 ? ' scored-10' : effectivePts === 5 ? ' scored-5' : hasAnswer ? ' scored-0' : ''}`;
   row.dataset.id = id;
 
   const { label } = getScoreLabel(effectivePts);
@@ -73,11 +73,12 @@ function createScoreRow(id, name, icon, answer, pts, onCycle) {
 }
 
 function updateScoreRowUI(row, btn, pts) {
+  const hasAnswer = !btn.disabled;
   const { label } = getScoreLabel(pts);
   btn.className = `score-btn ${getScoreState(pts)}`;
   btn.querySelector('.pts').textContent = pts;
   btn.querySelector('.pts-label').textContent = label;
-  row.className = `score-row${pts === 10 ? ' scored-10' : pts === 5 ? ' scored-5' : ''}`;
+  row.className = `score-row${pts === 10 ? ' scored-10' : pts === 5 ? ' scored-5' : hasAnswer ? ' scored-0' : ''}`;
 }
 
 function escapeHtml(str) {

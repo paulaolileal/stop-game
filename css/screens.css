@@ -455,6 +455,8 @@
 .game-input:focus { border-bottom-color: var(--color-primary); }
 .game-input:disabled { color: var(--text-muted); cursor: not-allowed; }
 .game-input::placeholder { color: var(--text-muted); font-weight: 400; font-size: 0.9rem; }
+.game-input.input-invalid { border-bottom-color: var(--color-danger) !important; color: var(--color-danger); }
+.game-input.input-invalid::placeholder { color: rgba(239, 71, 111, 0.5); }
 
 /* CEP composite row — stacked vertically for readability */
 .cep-inputs {
@@ -603,7 +605,7 @@
 }
 .round-breakdown-pts.pts-10 { color: var(--color-score-10); }
 .round-breakdown-pts.pts-5  { color: var(--color-score-5); }
-.round-breakdown-pts.pts-0  { color: var(--text-muted); }
+.round-breakdown-pts.pts-0  { color: var(--color-score-0); }
 
 /* ════════════════════════════════════════════════════════
    SCREEN: FINAL
@@ -734,6 +736,7 @@
   }
   #screen-letter .letter-options-col .letter-divider { padding: 0.75rem 0; margin: 0; }
   #screen-letter .letter-options-col .letter-number-row { padding: 0; width: auto; }
+  #screen-letter.active { padding-bottom: 2.25rem; }
   #screen-letter .bottom-bar { grid-column: 2; grid-row: 3; position: static; padding: 1rem 3rem; border-top: none; background: transparent; }
 
   /* ── Game: inputs em 2 colunas ── */
