@@ -631,8 +631,149 @@
 .share-actions { display: flex; flex-direction: column; gap: 0.5rem; margin-top: 1rem; }
 
 /* ════════════════════════════════════════════════════════
-   Responsive tweaks
+   RESPONSIVE — DESKTOP (≥ 768px)
    ════════════════════════════════════════════════════════ */
-@media (min-width: 480px) {
-  #app { border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+@media (min-width: 768px) {
+
+  /* ── Home: logo à esquerda, ações à direita ── */
+  .home-content {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    grid-template-rows: auto auto;
+    column-gap: 5rem;
+    row-gap: 2rem;
+    max-width: 1040px;
+    padding: 3rem 5rem;
+    align-items: center;
+  }
+
+  .home-logo        { grid-column: 1; grid-row: 1; text-align: left; }
+  .home-logo-title  { font-size: 8rem; }
+  .home-logo-sub    { text-align: left; font-size: 1rem; margin-top: 0.75rem; }
+
+  .home-actions     { grid-column: 2; grid-row: 1; }
+
+  .home-content > p { grid-column: 1 / -1; grid-row: 2; text-align: left; }
+
+  .home-bg-circles .c1 { width: 600px; height: 600px; }
+  .home-bg-circles .c2 { width: 420px; height: 420px; }
+  .home-bg-circles .c3 { width: 280px; height: 280px; }
+
+  /* ── Setup: grids mais largos ── */
+  .preset-grid { grid-template-columns: repeat(4, 1fr); }
+
+  .cat-list { display: grid; grid-template-columns: repeat(2, 1fr); }
+
+  .cat-scroll { max-height: calc(100dvh - 270px); }
+
+  /* ── Players: conteúdo centralizado em card estreito ── */
+  #screen-players .screen-body {
+    max-width: 520px;
+    margin: 0 auto;
+    width: 100%;
+    min-height: auto;
+    padding-block: 2rem;
+  }
+
+  /* ── Letter: 2 colunas — display (esq.) + número/start (dir.) ── */
+  #screen-letter.active {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr auto auto;
+    min-height: 100dvh;
+  }
+
+  #screen-letter .screen-header   { grid-column: 1 / -1; grid-row: 1; }
+  #screen-letter .letter-display-wrap {
+    grid-column: 1; grid-row: 2 / 5;
+    padding: 2rem 3rem;
+    justify-content: center;
+  }
+  #screen-letter .letter-big      { font-size: 14rem; min-height: 200px; }
+  #screen-letter .letter-divider  { grid-column: 2; grid-row: 2; align-self: end; padding: 0 3rem 1rem; margin: 0; }
+  #screen-letter .letter-number-row { grid-column: 2; grid-row: 3; padding: 1.5rem 3rem; width: auto; }
+  #screen-letter .bottom-bar      { grid-column: 2; grid-row: 4; position: static; padding: 1rem 3rem; border-top: none; background: transparent; }
+
+  /* ── Game: inputs em 2 colunas ── */
+  .category-rows {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0.75rem;
+    gap: 0.5rem;
+    align-items: start;
+  }
+
+  .category-row {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+
+  .category-row-label { display: block; }
+
+  /* ── Scoring: cards em 2 colunas ── */
+  .score-rows {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0.75rem 1.5rem 4rem;
+    align-items: start;
+  }
+
+  /* ── Round Result: hero lateral + breakdown à direita ── */
+  #screen-round-result { flex-direction: row; }
+
+  .round-result-hero {
+    flex: 0 0 340px;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .round-result-body {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 100dvh;
+    padding: 2.5rem 2rem;
+  }
+
+  /* ── Final: hero lateral + ranking à direita ── */
+  #screen-final { flex-direction: row; flex-wrap: wrap; }
+
+  .final-hero {
+    flex: 0 0 360px;
+    min-height: calc(100dvh - 88px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 2rem;
+  }
+
+  .final-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 2rem;
+    padding-bottom: 0;
+  }
+
+  #screen-final .bottom-bar { flex: 0 0 100%; }
+}
+
+/* ════════════════════════════════════════════════════════
+   RESPONSIVE — WIDE DESKTOP (≥ 1280px)
+   ════════════════════════════════════════════════════════ */
+@media (min-width: 1280px) {
+  .preset-grid    { grid-template-columns: repeat(5, 1fr); }
+  .cat-list       { grid-template-columns: repeat(3, 1fr); }
+  .category-rows  { grid-template-columns: repeat(3, 1fr); }
+  .score-rows     { grid-template-columns: repeat(3, 1fr); }
+
+  .home-content {
+    max-width: 1200px;
+    padding: 4rem 6rem;
+    grid-template-columns: 1fr 420px;
+    column-gap: 7rem;
+  }
+
+  .home-logo-title { font-size: 10rem; }
 }
