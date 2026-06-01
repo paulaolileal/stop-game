@@ -195,7 +195,7 @@ h3 { font-family: 'Nunito', sans-serif; font-size: 1.1rem; font-weight: 700; }
   font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
-  background: var(--bg-main);
+  background: var(--bg-base);
   border-top: 1px solid var(--border);
   z-index: 100;
 }
