@@ -1,11 +1,15 @@
-# Stop! — Adedanha
+<p align="center">
+  <img src="docs/images/stop-logo-full.png" alt="Stop! Adedanha" width="320" />
+</p>
 
-> Jogo de Stop/Adedanha offline para grupos de amigos — 100% no navegador, sem login, sem servidor.
+<p align="center"><em>Jogo de Stop/Adedanha offline para grupos de amigos — 100% no navegador, sem login, sem servidor.</em></p>
 
-[![Jogue Agora](https://img.shields.io/badge/Jogue%20Agora-▶%20Play-FF6B6B?style=for-the-badge&logo=googlechrome&logoColor=white)](https://stop.lealtek.com)
-[![PWA](https://img.shields.io/badge/PWA-instalável-6C63FF?style=for-the-badge&logo=googlechrome&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
-[![Offline](https://img.shields.io/badge/offline-100%25-43D9AD?style=for-the-badge)](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API)
-[![Licença](https://img.shields.io/badge/licença-MIT-blue?style=for-the-badge)](LICENSE)
+<p align="center">
+  <a href="https://stop.lealtek.com"><img src="https://img.shields.io/badge/Jogue%20Agora-▶%20Play-FF6B6B?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Jogue Agora" /></a>
+  <img src="https://img.shields.io/badge/PWA-instalável-6C63FF?style=for-the-badge&logo=googlechrome&logoColor=white" alt="PWA" />
+  <img src="https://img.shields.io/badge/offline-100%25-43D9AD?style=for-the-badge" alt="Offline" />
+  <a href="LICENSE"><img src="https://img.shields.io/badge/licença-MIT-blue?style=for-the-badge" alt="Licença" /></a>
+</p>
 
 ---
 
@@ -67,6 +71,21 @@ Home → Configurar categorias → Informar nome → Sortear letra → Preencher
 7. **Pontuação** — revisar cada resposta e atribuir pontos tocando no botão da categoria (ciclo: 10 → 5 → 0)
 8. **Resultado** — ver pontuação da rodada e total acumulado; avançar para a próxima rodada ou encerrar
 9. **Final** — ranking com vencedor destacado; opção de jogar novamente com as mesmas configurações
+
+---
+
+## Screenshots
+
+<p align="center">
+  <img src="docs/images/stop-home.png" alt="Tela inicial" width="180" />
+  <img src="docs/images/stop-categorias.png" alt="Seleção de categorias" width="180" />
+  <img src="docs/images/stop-categorias-2.png" alt="Categorias personalizadas" width="180" />
+  <img src="docs/images/stop-jogador.png" alt="Informar nome do jogador" width="180" />
+</p>
+<p align="center">
+  <img src="docs/images/stop-sortear-letra.png" alt="Sorteio de letra" width="180" />
+  <img src="docs/images/stop-rodada.png" alt="Rodada em andamento" width="180" />
+</p>
 
 ---
 
